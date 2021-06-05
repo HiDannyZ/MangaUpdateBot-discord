@@ -19,9 +19,6 @@ def addDateSuffix(day):
         suffix = ["st", "nd", "rd"][day % 10 - 1]
     return str(day)+suffix
 
-#Wednesday, May 26th 2021
-
-
 def setDate():
 
     day = addDateSuffix(date.today().day)
@@ -30,11 +27,6 @@ def setDate():
     today = month + " " + day + " " + year
     print(today)
     return today
-
-
-
-
-
 
 #List of Urls, Will be a map
 urls = {"Solo Leveling":"Where I normally read it"}
@@ -46,8 +38,11 @@ def fetchMangaUpdates(mangaName,url):
     # Gets all the html data
     data = BeautifulSoup(page.text, 'html.parser')
     
-    date = data.find('p', "d-inline titlesmall").find_next_sibling().find_all("a",{'title': 'Series Info'})
-    theList = "".join([str(tag.text + "|") for tag in date])
+    seriesInfoList = data.find('p', "d-inline titlesmall").find_next_sibling().find_all("a",{'title': 'Series Info'})
+    todaySeriesTitles = [title.text for title in seriesInfoList]
+
+    #seriesTitles = "".join([str(tag.text + "|") for titles in seriesInfo])
+    print(todaySeriesTitles)
     return
 
 def fetch():
@@ -68,28 +63,6 @@ def remove():
     return
 
 if __name__ == '__main__':
-    addManga2("Solo Leveling","https://www.mangaupdates.com/releases.html")
+    fetchMangaUpdates("Solo Leveling","https://www.mangaupdates.com/releases.html")
     #addManga("Solo Leveling","https://manganelo.com/manga/pn918005")
     setDate()
-
-
-
-
-
-
-#Grabs HTML page if new
-def addManga(mangaName,url):
-    page = requests.get(url)
-
-    #Check if 200 or 404
-    response_code = str(page.status_code)
-
-    # Display the text of the URL in str
-    data = page.text
-
-    # Use BeautifulSoup to use the built-in methods
-    soup = BeautifulSoup(data,"html.parser")
-
-    # Iterate over all links on the given URL with the response code next to it
-    for link in soup.find_all('a'):
-        print(f"Url: {link.get('href')} " + f"| Status Code: {response_code}")

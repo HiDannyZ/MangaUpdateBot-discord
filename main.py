@@ -7,7 +7,17 @@ import re
 import time
 
 headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'}
+reading = {}
 
+
+def loadFile():
+    # Dict that will contain keys and values
+    with open("reading.txt", "r") as theFile:
+        for line in theFile:
+            entry = line.strip().split("|")
+            print(entry)
+            reading[entry[0]] = entry[1]
+        return reading
 
 
 def addDateSuffix(day):
@@ -28,11 +38,9 @@ def setDate():
     print(today)
     return today
 
-#List of Urls, Will be a map
-urls = {"Solo Leveling":"Where I normally read it"}
-
-def fetchMangaUpdates(mangaName,url):
-    page = requests.get(url)
+# Returns a List of Today's Manga that were released.
+def fetchMangaUpdates():
+    page = requests.get("https://www.mangaupdates.com/releases.html")
     page.raise_for_status() #if error it will stop the program
 
     # Gets all the html data
@@ -42,12 +50,18 @@ def fetchMangaUpdates(mangaName,url):
     todaySeriesTitles = [title.text for title in seriesInfoList]
 
     #seriesTitles = "".join([str(tag.text + "|") for titles in seriesInfo])
+    todaySeriesTitles.append("Solo Leveling")
     print(todaySeriesTitles)
+
+    return todaySeriesTitles
+
+#TODO: Search today's list for if anything I read was updated
+def Update(todaySeriesTitles):
+    updatedSeries = [title for title in todaySeriesTitles if title in reading]
+    print(updatedSeries)
     return
 
-def fetch():
-    return
-
+#Multiple Days 
 def fetchAll():
     return
 
@@ -63,6 +77,8 @@ def remove():
     return
 
 if __name__ == '__main__':
-    fetchMangaUpdates("Solo Leveling","https://www.mangaupdates.com/releases.html")
-    #addManga("Solo Leveling","https://manganelo.com/manga/pn918005")
-    setDate()
+    readingInfo = loadFile()
+    print(readingInfo)
+    #todaySeriesTitles = fetchMangaUpdates()
+    #Update(todaySeriesTitles)
+    

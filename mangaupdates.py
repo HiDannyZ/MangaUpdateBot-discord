@@ -66,10 +66,9 @@ def Update(todaySeriesTitles):
 
 #Grabs HTML page if new
 def addManga(name,url):
-    entry = "{name}|{url}".format(name=name,url=url)
+    entry = "{name}|{url}\n".format(name=name,url=url)
     with open("reading.txt","a") as theFile:
         theFile.write(entry)
-    return ""
 
 
 def listFollowedManga():

@@ -1,2 +1,4 @@
 .vscode/settings.json
 .vscode/
+__pycache__/discord.cpython-39.pyc
+tokens.py

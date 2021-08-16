@@ -6,19 +6,16 @@ import requests
 # PLAN TO READ
 # DROPPED
 
-
-# Populate Reading List with Everything I am reading
-
-# Here we define our query as a multi-line string
 query = '''
-# Define which variables will be used in the query (id)
 query { 
     User(search:"hidanny"){
         id
     }
   }
 '''
-query2 = '''
+
+# Currently Reading
+currentlyRead = '''
     query($userId: Int) {
         MediaListCollection(userId:$userId, userName:"HiDanny", type:MANGA,status:CURRENT){
             lists{
@@ -33,6 +30,13 @@ query2 = '''
       }
     }
 '''
+
+WatchedAnime = '''{
+  Page(page: 1) {
+  }
+}
+'''
+
 query3 = '''{
   Page(page: 1) {
     characters(sort: FAVOURITES_DESC) {
@@ -49,15 +53,28 @@ variables = {
     'id': 15125
 }
 
-# Make the HTTP Api request
-def currentReading():
+def allWatched():
     url = 'https://graphql.anilist.co'
     response = requests.post(url, json={'query': query2, 'variables': variables})
+    page = response.json()
+
+
+
+
+# Make the HTTP Api request
+def currentlyReading():
+    url = 'https://graphql.anilist.co'
+    response = requests.post(url, json={'query': WatchedAnime, 'variables': variables})
     page = response.json()
     mediaData = page['data']['MediaListCollection']['lists'][0]['entries']
     print(mediaData)
 
+    allTitles = []
     for media in mediaData:
       title = media['media']['title']['romaji']
-      print(title)
-    
+      allTitles.append(title)
+    return allTitles
+
+if __name__ == '__main__':
+  currentlyReading()
+  allWatched()

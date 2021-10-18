@@ -5,6 +5,7 @@ import requests
 # CURRENTLY READING
 # PLAN TO READ
 # DROPPED
+url = 'https://graphql.anilist.co'
 
 query = '''
 query { 
@@ -54,8 +55,7 @@ variables = {
 }
 
 def allWatched():
-    url = 'https://graphql.anilist.co'
-    response = requests.post(url, json={'query': query2, 'variables': variables})
+    response = requests.post(url, json={'query': WatchedAnime, 'variables': variables})
     page = response.json()
 
 
@@ -63,9 +63,9 @@ def allWatched():
 
 # Make the HTTP Api request
 def currentlyReading():
-    url = 'https://graphql.anilist.co'
-    response = requests.post(url, json={'query': WatchedAnime, 'variables': variables})
+    response = requests.post(url, json={'query': currentlyRead, 'variables': variables})
     page = response.json()
+    print(page)
     mediaData = page['data']['MediaListCollection']['lists'][0]['entries']
     print(mediaData)
 

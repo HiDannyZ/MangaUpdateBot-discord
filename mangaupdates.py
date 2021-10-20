@@ -53,15 +53,15 @@ def fetchMangaUpdates():
     todaySeriesTitles = [title.text for title in seriesInfoList]
 
     #seriesTitles = "".join([str(tag.text + "|") for titles in seriesInfo])
-    todaySeriesTitles.append("Solo Leveling")
-    print(todaySeriesTitles)
+    #print(todaySeriesTitles)
     return todaySeriesTitles
 
-#TODO: Search today's list for if anything I read was updated
+# Purpose: Search today's list for if anything I read was updated
+# Returns: List of Things I read that were updated
 def Update(todaySeriesTitles):
-    updatedSeries = [title for title in todaySeriesTitles if title in reading]
+    updatedSeries = [title for title in todaySeriesTitles if title in reading.keys()]
     print(updatedSeries)
-    return
+    return updatedSeries
 
 
 #Grabs HTML page if new
@@ -79,8 +79,4 @@ def remove():
 
 if __name__ == '__main__':
     readingInfo = loadFile()
-    addManga("test","http://google.com")
-    print(fetchMangaUpdates())
-    #todaySeriesTitles = fetchMangaUpdates()
-    #Update(todaySeriesTitles)
-    
+    updatedManga = Update(fetchMangaUpdates())

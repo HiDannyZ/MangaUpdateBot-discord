@@ -1,7 +1,8 @@
 # MangaUpdateBot-discord
 
-Created a Trello Board
-Refined the project with it
+Dropped the Project. Realized that there was no point of this while I don't even read that much anymore
 
 Future:
 https://api.mangadex.org/docs.html#section/Authentication
+
+

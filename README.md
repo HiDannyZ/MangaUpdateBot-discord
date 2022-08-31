@@ -1,8 +1,11 @@
 # MangaUpdateBot-discord
 
-Dropped the Project. Realized that there was no point of this while I don't even read that much anymore
+# MVP Goals:
+Discord Bot displays currently all reading and pings when a new chapter comes out
+Anilist.py gives back all reading
+
+
+
 
 Future:
-https://api.mangadex.org/docs.html#section/Authentication
-
-
+Discord Bot drops a link to the next chapter as well.

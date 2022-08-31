@@ -55,13 +55,13 @@ variables = {
 }
 
 #Purpose: Returns everything I watched
-def allWatched():
+def all_watched():
     response = requests.post(url, json={'query': WatchedAnime, 'variables': variables})
     page = response.json()
 
 
 # Make the HTTP Api request
-def currentlyReading():
+def currently_reading():
     response = requests.post(url, json={'query': currentlyRead, 'variables': variables})
     page = response.json()
     mediaData = page['data']['MediaListCollection']['lists'][0]['entries']
@@ -72,9 +72,9 @@ def currentlyReading():
       allTitles.append(title)
     return allTitles
 
-def createTextFile():
+def create_text_file():
   return
 
 if __name__ == '__main__':
-  theManga = currentlyReading()
-  print(theManga)
+  the_manga = currently_reading()
+  print(the_manga)
